@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="ProjetGL2_2012" default="run">
+ 
+	<property name="src.dir" value="src" />
+	<property name="classes.dir" value="bin" />
+	<property name="jar.dir" value="lib" />
+	<property name="doc.dir" value="doc" />
+	<property name="jar_name" value="GL2.jar" />
+
+	<target name="clean">
+		<delete dir="${classes.dir}"/>
+		<delete dir="${jar.dir}"/>
+		<delete dir="${doc.dir}"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${classes.dir}" />
+		<javac encoding="UTF-8" srcdir="${src.dir}" destdir="${classes.dir}" />
+	</target>
+
+	<target name="run" depends="jar">
+	        <java jar="${jar.dir}/${jar_name}" fork="true"/>
+	</target>
+	
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="doc" doctitle="Projet Génie Logiciel 2 - ONE TOP" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="gdp.controleur,gdp.modele,gdp.vue,gdp.modele.crud,gdp.vue.crud" source="1.6" sourcepath="src" splitindex="true" use="true" version="true">
+            <link href="${doc.dir}"/>
+        </javadoc>
+    </target>
+
+    <target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+        <jar destfile="${jar.dir}/${jar_name}" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="gdp.controleur.Application"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${classes.dir}"/>
+        </jar>
+    </target>
+
+</project>
+
